@@ -1,18 +1,18 @@
 const express = require('express');
 const verifyJWT = require('../utils/verifyJWT');
-const reviewController = require('../controllers/review.controller');
+const { getAll, create, getOne, remove, update } = require('../controllers/review.controller');
 
 const reviewRouter = express.Router();
 
 
 reviewRouter.route('/reviews')
-    .get(reviewController.getAllReviews)
-    .post(verifyJWT, reviewController.createReview);
+    .get(getAll)
+    .post(verifyJWT, create);
 
 reviewRouter.route('/reviews/:id')
-    .get(reviewController.getOneReview)
-    .delete(verifyJWT, reviewController.removeReview)
-    .put(verifyJWT, reviewController.updateReview);
+    .get(getOne)
+    .delete(verifyJWT, remove)
+    .put(verifyJWT, update);
 
 module.exports = reviewRouter;
 

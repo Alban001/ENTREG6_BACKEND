@@ -1,16 +1,16 @@
 const express = require('express');
 const verifyJWT = require('../utils/verifyJWT');
-const bookingController = require('../controllers/booking.controller');
+const { getAll, create, update, remove } = require('../controllers/booking.controller');
+
 
 const bookingRouter = express.Router();
 
 bookingRouter.route('/bookings')
-    .get(verifyJWT, bookingController.getAllBookings)
-    .post(verifyJWT, bookingController.createBooking);
+    .get(verifyJWT, getAll)
+    .post(verifyJWT, create);
 
 bookingRouter.route('/bookings/:id')
-    .get(verifyJWT, bookingController.getBookingById)
-    .put(verifyJWT, bookingController.updateBooking)
-    .delete(verifyJWT, bookingController.deleteBooking);
+    .put(verifyJWT, update)
+    .delete(verifyJWT, remove);
 
 module.exports = bookingRouter;

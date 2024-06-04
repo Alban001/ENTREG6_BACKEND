@@ -1,16 +1,16 @@
 const express = require('express');
 const verifyJWT = require('../utils/verifyJWT');
-const cityController = require('../controllers/city.controller');
+const { getAll, create, getOne, update, remove } = require('../controllers/city.controller');
 
 const cityRouter = express.Router();
 
 cityRouter.route('/cities')
-    .get(cityController.getAllCities)
-    .post(verifyJWT, cityController.createCity);
+    .get(getAll)
+    .post(verifyJWT, create);
 
 cityRouter.route('/cities/:id')
-    .get(cityController.getCityById)
-    .put(verifyJWT, cityController.updateCity)
-    .delete(verifyJWT, cityController.deleteCity);
+    .get(getOne)
+    .put(verifyJWT, update)
+    .delete(verifyJWT, remove);
 
 module.exports = cityRouter;

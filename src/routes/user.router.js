@@ -9,7 +9,7 @@ userRouter.route('/users')
     .post(create);
 
 userRouter.route('/users/login')
-    .post(login);
+    .post(login)
 
 userRouter.route('/users/:id')
     .get(verifyJWT, getOne)

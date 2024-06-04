@@ -8,10 +8,10 @@ const main = async() => {
         sequelize.sync();
 
         const testUser = {
-            firstName: "elias",
-            lastName: "alonzo",
-            email: "eliasalban03@gmail.com",
-            password: "elias123",
+            firstName: "Tomy",
+            lastName: "Garcia",
+            email: "tomy@gmail.com",
+            password: "tomy26996",
             gender: "male",
         }
 

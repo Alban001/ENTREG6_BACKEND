@@ -8,9 +8,6 @@ const Booking = require('./Booking');
 User.hasMany(Review);
 Review.belongsTo(User);
 
-Review.hasMany(Image);
-Image.belongsTo(Review);
-
 Review.belongsTo(Hotel);
 Hotel.hasMany(Review);
 
@@ -19,3 +16,9 @@ Booking.belongsTo(User);
 
 Hotel.belongsTo(City);
 City.hasMany(Hotel);
+
+Booking.belongsTo(Booking);
+Hotel.hasMany(Booking);
+
+Image.belongsTo(Hotel);
+Hotel.hasMany(Image);

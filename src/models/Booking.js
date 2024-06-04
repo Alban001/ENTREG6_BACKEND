@@ -3,11 +3,11 @@ const sequelize = require('../utils/connection');
 
 const Booking = sequelize.define('Booking', {
     checkInDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     checkOutDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
 });

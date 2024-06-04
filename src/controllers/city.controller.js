@@ -26,12 +26,12 @@ const remove = catchError(async (req, res) => {
 
 const update = catchError(async (req, res) => {
     const { id } = req.params;
-    const [updatedCount, updatedCity] = await City.update(req.body, {
+    const results = await City.update(req.body, {
         where: { id },
         returning: true,
     });
-    if (updatedCount === 0) return res.sendStatus(404);
-    return res.json(updatedCity[0]);
+    if (results[0] === 0) return res.sendStatus(404);
+    return res.json(results[1][0]);
 });
 
 module.exports = {

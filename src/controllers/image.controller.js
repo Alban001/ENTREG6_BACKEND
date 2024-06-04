@@ -1,5 +1,6 @@
 const catchError = require('../utils/catchError');
 const Image = require('../models/Image');
+const { uploadToCloudinary, deleteFromCloudinary } = require('../utils/cloudinary');
 
 const getAll = catchError(async (req, res) => {
     const images = await Image.findAll();
@@ -7,9 +8,14 @@ const getAll = catchError(async (req, res) => {
 });
 
 const create = catchError(async (req, res) => {
-    const newImage = await Image.create(req.body);
-    return res.status(201).json(newImage);
-});
+    if (!req.file) return res.status(400).json({ message: "no hay imagen" });
+    const { url } = await uploadToCloudinary(req.file);
+    const result = await Image.create({
+      url,
+      hotelId: req.body.hotelId,
+    });
+    return res.status(201).json(result);
+  });
 
 const getOne = catchError(async (req, res) => {
     const { id } = req.params;
@@ -20,24 +26,17 @@ const getOne = catchError(async (req, res) => {
 
 const remove = catchError(async (req, res) => {
     const { id } = req.params;
-    await Image.destroy({ where: { id } });
+    const image = await Image.findOne({ where: { id } });
+    if (!image) return res.status(404).json({ message: "image not found" });
+    await deleteFromCloudinary(image.url);
+    await image.destroy();
     return res.sendStatus(204);
-});
+  });
 
-const update = catchError(async (req, res) => {
-    const { id } = req.params;
-    const [updatedCount, updatedImage] = await Image.update(req.body, {
-        where: { id },
-        returning: true,
-    });
-    if (updatedCount === 0) return res.sendStatus(404);
-    return res.json(updatedImage[0]);
-});
 
 module.exports = {
     getAll,
     create,
     getOne,
     remove,
-    update
 };

@@ -10,10 +10,10 @@ let token;
 
 test('POST /users debe crear un usuario', async () => {
     const newUser = {
-        firstName: 'elias',
-        lastName: 'alonzo',
-        email: 'eliasalban03@gmail.com',
-        password: '123',
+        firstName: 'Tomy',
+        lastName: 'Garcia',
+        email: 'tomy@gmail.com',
+        password: 'tomy26996',
         gender: 'male',
     }
     const res = await request(app).post('/users').send(newUser);
@@ -25,8 +25,8 @@ test('POST /users debe crear un usuario', async () => {
 
 test('POST /users/login debe loggear al usuario', async () => {
     const credentials = {
-        email: 'eliasalban03@gmail.com',
-        password: '123',
+        email: 'tomy@gmail.com',
+        password: 'tomy26996',
     }
     const res = await request(app).post('/users/login').send(credentials);
     token = res.body.token;
@@ -43,8 +43,8 @@ test('GET /users debe traer todos los usuarios', async () => {
 
 test('POST /users/login con credenciales incorrectas debe dar error', async () => {
     const credentials = {
-        email: 'eliasalban03@gmail.com',
-        password: '123',
+        email: 'tomyisnottesting@gmail.com',
+        password: 'tomynottest1234',
     }
     const res = await request(app).post('/users/login').send(credentials);
     expect(res.status).toBe(401);

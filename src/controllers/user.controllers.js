@@ -18,6 +18,19 @@ const getOne = catchError(async (req, res) => {
     return res.json(user);
 });
 
+const login = catchError(async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email } });
+    if (!user) return res.status(401).json({ message: " Invalid credentials" });
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid)
+    return res.status(401).json({ message: " Invalid credentials" });
+    const token = jwt.sign({ user }, process.env.TOKEN_SECRET, {
+      expiresIn: "1d",
+    });
+    return res.json({ user, token });
+  });
+
 const remove = catchError(async (req, res) => {
     const { id } = req.params;
     await User.destroy({ where: { id } });
@@ -26,32 +39,14 @@ const remove = catchError(async (req, res) => {
 
 const update = catchError(async (req, res) => {
     const { id } = req.params;
-    const [updatedCount, updatedUser] = await User.update(req.body, {
-        where: { id },
-        returning: true,
-    });
-    if (updatedCount === 0) return res.sendStatus(404);
-    return res.json(updatedUser[0]);
-});
-
-const login = catchError(async(req,res)=>{
-    const {email, password}= req.body;
-    const user = await User.findOne({where : {email: email}});
-    if(user === null) {
-        return res.status(401).json({message: 'Invalid Users'})
-    }
-    const isValid = await bcrypt.compare(password, user.password);
-    if(isValid === false){
-        return res.status(401).json({ message : 'Invalid Credentials'})
-    }
-    const token = jwt.sign(
-        {user},
-        process.env.TOKEN_SECRET,
-        {expiresIn: "1d"}
-    )
-    return res.json({user, token})
-})
-
+    const { firstName, lastName, email, gender } = req.body;
+    const result = await User.update(
+      { firstName, lastName, email, gender },
+      { where: { id }, returning: true }
+    );
+    if (result[0] === 0) return res.sendStatus(404);
+    return res.json(result[1][0]);
+  });
 
 module.exports = {
     getAll,

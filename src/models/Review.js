@@ -2,34 +2,14 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/connection');
 
 const Review = sequelize.define('Review', {
-    title: {
+    comment: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    content: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    imageDescription: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    date: {
-        type: DataTypes.DATE,
-        allowNull: false
-    },
-    body: {
-        type: DataTypes.TEXT,
         allowNull: false
     },
     rating: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
         allowNull: false,
-        validate: {
-            min: 1,
-            max: 5
-        }
-    },
+    }
 });
 
 module.exports = Review;

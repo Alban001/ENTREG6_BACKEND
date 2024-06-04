@@ -7,8 +7,8 @@ describe('Hotel API Endpoints', () => {
 
     beforeAll(async () => {
         const credentials = {
-            email: "eliasalban03@gmail.com",
-            password: "123",
+            email: "tomy@gmail.com",
+            password: "tomy26996",
         }
         const res = await request(app).post('/users/login').send(credentials);
         token = res.body.token;
