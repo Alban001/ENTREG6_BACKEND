@@ -7,7 +7,7 @@ const reviewRouter = express.Router();
 
 reviewRouter.route('/reviews')
     .get(getAll)
-    .post(verifyJWT, create);
+    .post(create);
 
 reviewRouter.route('/reviews/:id')
     .get(getOne)
