@@ -6,11 +6,13 @@ const hotelRouter = express.Router();
 
 hotelRouter.route('/hotels')
     .get(getAll)
-    .post(verifyJWT, create);
+    .post(create);
 
 hotelRouter.route('/hotels/:id')
     .get(getOne)
     .put(verifyJWT, update)
     .delete(verifyJWT, remove);
+
+    
 
 module.exports = hotelRouter;

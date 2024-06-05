@@ -25,6 +25,10 @@ const Hotel = sequelize.define('Hotel', {
     lon:{
         type: DataTypes.DECIMAL,
         allowNull: false
+    },
+    CityId:{
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
     
 });

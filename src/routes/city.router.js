@@ -6,7 +6,7 @@ const cityRouter = express.Router();
 
 cityRouter.route('/cities')
     .get(getAll)
-    .post(verifyJWT, create);
+    .post( create);
 
 cityRouter.route('/cities/:id')
     .get(getOne)
